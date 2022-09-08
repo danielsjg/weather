@@ -16,15 +16,15 @@ App developed in React Native with the objective of reporting weather data using
 
 Designed with Figma, available in:
 
-- [Weather](https://www.figma.com/file/yBnBPJIsYtSZG5V3PrkKMA/Weather?node-id=0%3A1).
+- [Weather](https://www.figma.com/file/yBnBPJIsYtSZG5V3PrkKMA/Weather?node-id=0%3A1)
 
 #### Weather
 
-<img src="https://drive.google.com/uc?export=view&id=1ULqP6Bevul4atdUIFp-HZJ7ozQc7RGCh" width="150">
+<img src="https://imgur.com/pdFzAbi" width="435">
 
 #### Screens
 
-<img src="https://drive.google.com/uc?export=view&id=1ULqP6Bevul4atdUIFp-HZJ7ozQc7RGCh" width="600">
+<img src="https://imgur.com/LrJ0JoZ" width="552">
 
 ## Running the project
 

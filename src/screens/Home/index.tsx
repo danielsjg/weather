@@ -27,6 +27,7 @@ import {
   LoadingContainer,
   Loading,
   PermissionContainer,
+  FailedContainer,
 } from './styles';
 
 // Redux
@@ -149,6 +150,26 @@ const Home: React.FC = () => {
         </LoadingContainer>
       );
     }
+    if (
+      city === undefined ||
+      temp === undefined ||
+      feelsLike === undefined ||
+      pressure === undefined ||
+      humidity === undefined
+    ) {
+      return (
+        <FailedContainer>
+          <Icon
+            name="refresh"
+            size={metrics.fontSizeHigh}
+            color={colors.primaryText}
+            onPress={refreshWeather}
+            suppressHighlighting
+          />
+          <Subtitle>Reading weather data has failed</Subtitle>
+        </FailedContainer>
+      );
+    }
     return (
       <>
         <SafeContainer>
@@ -221,6 +242,9 @@ const Home: React.FC = () => {
     windCardData,
     city,
     temp,
+    feelsLike,
+    humidity,
+    pressure,
     weather,
     refreshWeather,
   ]);

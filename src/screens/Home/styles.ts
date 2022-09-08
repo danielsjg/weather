@@ -102,3 +102,11 @@ export const PermissionContainer = styled.View`
   margin: ${metrics.baseMargin}px;
   background-color: ${colors.primary};
 `;
+
+export const FailedContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin: ${metrics.baseMargin}px;
+  background-color: ${colors.primary};
+`;
