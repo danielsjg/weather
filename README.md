@@ -20,11 +20,11 @@ Designed with Figma, available in:
 
 #### Weather
 
-<img src="https://imgur.com/pdFzAbi" width="435">
+<img src="https://i.imgur.com/pdFzAbi.mp4" width="435">
 
 #### Screens
 
-<img src="https://imgur.com/LrJ0JoZ" width="552">
+<img src="https://i.imgur.com/LrJ0JoZ.png" width="552">
 
 ## Running the project
 
