@@ -1,8 +1,10 @@
 <h1 align="center">Weather</h1>
+<p align="center">Application to visualize weather data based on the device's location (<a href="https://openweathermap.org/api">OpenWeather</a>)</p>
 
 ## Content Table
 
 - [About this project](#-about-this-project)
+- [Tools](#-tools)
 - [Layout](#-layout)
 - [Running the project](#running-the-project)
 - [Running the tests](#running-the-tests)
@@ -14,6 +16,26 @@
 Application developed using React Native with the objective of reporting weather data using the user's location.
 
 
+## 🛠 Tools
+
+- [React](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ESLint](https://github.com/eslint/eslint)
+- [Prettier](https://github.com/prettier/prettier)
+- [Jest](https://github.com/facebook/jest)
+- [react-native-testing-library](https://github.com/callstack/react-native-testing-library)
+- [styled-components](https://github.com/styled-components/styled-components)
+- [axios](https://github.com/axios/axios)
+- [moment](https://github.com/moment/moment)
+- [react-navigation](https://github.com/react-navigation/react-navigation)
+- [redux-toolkit](https://github.com/reduxjs/redux-toolkit)
+- [react-native-permissions](https://github.com/zoontek/react-native-permissions)
+- [@react-native-community/geolocation](https://github.com/michalchudziak/react-native-geolocation)
+
+
+
+
 ## 🎨 Layout
 
 Designed with Figma, available in:
@@ -23,7 +45,7 @@ Designed with Figma, available in:
 
 #### Weather
 
-<img src="https://github.com/danielsjg/weather/blob/main/files/weather.gif?raw=true" width="200">
+<img src="https://github.com/danielsjg/weather/blob/master/files/weather.gif" width="200">
 
 
 #### Screens
@@ -43,7 +65,7 @@ cd weather
 
 
 # 3. Install the dependencies
-yarn # or $ npm install
+npm install
 
 
 # 4. Install Pod for ios
@@ -57,7 +79,7 @@ npx pod-install
 # API_BASE_URL='https://api.openweathermap.org/data/2.5'
 # API_KEY_URL=''
 
-Note: You need to create an account in [Open Weather Map](https://openweathermap.org/api) and create an API key.
+# Note: You need to create an account in OpenWeather(https://openweathermap.org/api) and create an API key.
 
 
 # 7. Run the application on android
