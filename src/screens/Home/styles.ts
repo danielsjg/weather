@@ -1,4 +1,7 @@
+// Libraries
 import styled from 'styled-components/native';
+
+// Styles
 import { colors, metrics } from '~/styles';
 
 interface IColor {
@@ -36,7 +39,6 @@ export const CardsContainer = styled.View`
 
 export const TitleContainer = styled.View`
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 `;
 
@@ -49,10 +51,12 @@ export const Footer = styled.View`
 `;
 
 export const TitleLeftContent = styled.View`
+  flex: 2;
   align-items: flex-start;
 `;
 
 export const TitleRightContent = styled.View`
+  flex: 1;
   align-items: flex-end;
 `;
 

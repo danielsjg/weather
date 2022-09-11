@@ -1,16 +1,16 @@
-// Types
+// Interfaces
 import WeatherDTO from '~/@types/WeatherDTO';
 import WindDTO from '~/@types/WindDTO';
 
 interface IInitialWeatherStateDTO {
-  weatherLoading: boolean | undefined;
-  city: string | undefined;
-  temp: number | undefined;
-  feelsLike: number | undefined;
-  humidity: number | undefined;
-  pressure: number | undefined;
-  weather: WeatherDTO;
-  wind: WindDTO;
+  weatherLoading?: boolean;
+  city?: string;
+  temp?: number;
+  feelsLike?: number;
+  humidity?: number;
+  pressure?: number;
+  weather?: WeatherDTO;
+  wind?: WindDTO;
 }
 
 export default IInitialWeatherStateDTO;

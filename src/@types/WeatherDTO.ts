@@ -1,8 +1,8 @@
 interface WeatherDTO {
-  id: number | undefined;
-  main: string | undefined;
-  description: string | undefined;
-  icon: string | undefined;
+  id?: number;
+  main?: string;
+  description?: string;
+  icon?: string;
 }
 
 export default WeatherDTO;

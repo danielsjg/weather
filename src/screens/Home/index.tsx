@@ -34,13 +34,18 @@ import {
 import { useDispatch, useSelector } from '~/store/hooks';
 import { getWeatherRequest } from '~/store/modules/weather/slice';
 
+// Assets
+import locationNotFound from '~/assets/images/locationNotFound.png';
+
 // Styles
 import { metrics, colors } from '~/styles';
 
-const Home: React.FC = () => {
+const Home: React.FC<{ permission?: boolean }> = testProps => {
   const dispatch = useDispatch();
 
-  const [permission, setPermission] = useState<boolean>(false);
+  const [locationPermission, setLocationPermission] = useState<boolean>(
+    testProps.permission ?? false,
+  );
 
   const {
     city,
@@ -57,7 +62,7 @@ const Home: React.FC = () => {
     () => ({
       feelsLike: {
         title: 'Feels Like',
-        value: feelsLike ?? 0,
+        value: feelsLike?.toFixed(1) ?? 0,
         unit: '°C',
       },
       pressure: { title: 'Pressure', value: pressure ?? 0, unit: 'hPa' },
@@ -68,13 +73,17 @@ const Home: React.FC = () => {
 
   const windCardData = useMemo(
     () => ({
-      speed: { title: 'Speed', value: wind.speed ?? 0, unit: 'm/s' },
+      speed: {
+        title: 'Speed',
+        value: wind?.speed?.toFixed(1) ?? 0,
+        unit: 'm/s',
+      },
       direction: {
         title: 'Direction',
-        value: wind.deg ?? 0,
+        value: wind?.deg ?? 0,
         unit: 'deg',
       },
-      gust: { title: 'Gust', value: wind.gust ?? 0, unit: 'm/s' },
+      gust: { title: 'Gust', value: wind?.gust?.toFixed(1) ?? 0, unit: 'm/s' },
     }),
     [wind],
   );
@@ -101,7 +110,7 @@ const Home: React.FC = () => {
       );
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        setPermission(true);
+        setLocationPermission(true);
         getPosition();
       }
     } catch (err) {
@@ -113,7 +122,7 @@ const Home: React.FC = () => {
     await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
       .then(result => {
         if (result === 'granted') {
-          setPermission(true);
+          setLocationPermission(true);
           getPosition();
         }
       })
@@ -135,30 +144,25 @@ const Home: React.FC = () => {
   }, [requestLocationPermissionAndroid, requestLocationPermissionIOS]);
 
   const renderScreenContent = useCallback(() => {
-    if (!permission) {
+    if (!locationPermission) {
       return (
-        <PermissionContainer>
+        <PermissionContainer testID="permissionContainer">
+          <Image source={locationNotFound} />
           <Text>The app is not allowed to get your location</Text>
         </PermissionContainer>
       );
     }
     if (weatherLoading) {
       return (
-        <LoadingContainer>
+        <LoadingContainer testID="loadingContainer">
           <Loading />
           <Subtitle>Loading weather data...</Subtitle>
         </LoadingContainer>
       );
     }
-    if (
-      city === undefined ||
-      temp === undefined ||
-      feelsLike === undefined ||
-      pressure === undefined ||
-      humidity === undefined
-    ) {
+    if ([city, temp, feelsLike, pressure, humidity].includes(undefined)) {
       return (
-        <FailedContainer>
+        <FailedContainer testID="failedContainer">
           <Icon
             name="refresh"
             size={metrics.fontSizeHigh}
@@ -176,13 +180,13 @@ const Home: React.FC = () => {
           <Container>
             <TitleContainer>
               <TitleLeftContent>
-                <Title>{city}</Title>
+                <Title testID="city">{city}</Title>
                 <Subtitle color={colors.secondaryText}>
                   {moment().format('MMMM, DD')}
                 </Subtitle>
               </TitleLeftContent>
               <TitleRightContent>
-                <Title>{temp}°C</Title>
+                <Title testID="temp">{temp?.toFixed(1)}°C</Title>
                 <Icon
                   name="refresh"
                   size={metrics.fontSizeHigh}
@@ -195,11 +199,11 @@ const Home: React.FC = () => {
             <ImageContainer>
               <Image
                 source={{
-                  uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
+                  uri: `http://openweathermap.org/img/wn/${weather?.icon}@4x.png`,
                 }}
               />
               <Text color={colors.secondaryText}>
-                {weather.description?.toUpperCase()}
+                {weather?.description?.toUpperCase()}
               </Text>
             </ImageContainer>
             <CardsContainer>
@@ -236,7 +240,7 @@ const Home: React.FC = () => {
       </>
     );
   }, [
-    permission,
+    locationPermission,
     weatherLoading,
     mainCardData,
     windCardData,

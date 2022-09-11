@@ -10,7 +10,7 @@
 
 ## 📄 About this project
 
-App developed in React Native with the objective of reporting weather data using the user's location
+Application developed using React Native with the objective of reporting weather data using the user's location.
 
 ## 🎨 Layout
 

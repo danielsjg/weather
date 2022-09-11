@@ -4,7 +4,7 @@ import api from '~/services/api';
 // DotEnv
 import { API_KEY } from '@env';
 
-// Types
+// Interfaces
 import { GetWeatherResponseDTO } from './types';
 
 function getWeatherAPI({

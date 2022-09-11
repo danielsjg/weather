@@ -6,7 +6,7 @@ import { Container, Title, Text } from './styles';
 
 const Card: React.FC<{
   title: string;
-  value: number;
+  value: number | string;
   unit: string;
   textColor: string;
   backgroundColor: string;
@@ -14,7 +14,9 @@ const Card: React.FC<{
   return (
     <Container color={backgroundColor}>
       <Text color={textColor}>{title}</Text>
-      <Title color={textColor}>{value}</Title>
+      <Title color={textColor} testID={title}>
+        {value}
+      </Title>
       <Text color={textColor} alignSelf={'flex-end'}>
         {unit}
       </Text>

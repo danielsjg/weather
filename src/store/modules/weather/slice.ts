@@ -1,7 +1,7 @@
 // Libraries
 import { createSlice } from '@reduxjs/toolkit';
 
-// Types
+// Interfaces
 import IInitialWeatherStateDTO from './types';
 import WeatherDTO from '~/@types/WeatherDTO';
 import WindDTO from '~/@types/WindDTO';

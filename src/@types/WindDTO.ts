@@ -1,7 +1,7 @@
 interface WindDTO {
-  speed: number | undefined;
-  deg: number | undefined;
-  gust: number | undefined;
+  speed?: number;
+  deg?: number;
+  gust?: number;
 }
 
 export default WindDTO;

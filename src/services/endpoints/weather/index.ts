@@ -1,7 +1,7 @@
 // API
 import { getWeatherAPI } from './endpoints';
 
-// Types
+// Interfaces
 import { GetWeatherResponseDTO } from './types';
 
 export { getWeatherAPI };
