@@ -1,5 +1,4 @@
 <h1 align="center">Weather</h1>
-<p align="center">Application to visualize weather data based on the device's location (<a href="https://openweathermap.org/api">OpenWeather</a>)</p>
 
 ## Content Table
 
@@ -13,7 +12,7 @@
 
 ## 📄 About this project
 
-Application developed using React Native with the objective of reporting weather data using the user's location.
+Application developed using React Native to visualize weather data based on the device's location (<a href="https://openweathermap.org/api">OpenWeather</a>)
 
 
 ## 🛠 Tools
