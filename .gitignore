@@ -63,4 +63,4 @@ buck-out/
 /vendor/bundle/
 
 # DotEnv
-/env
+.env
