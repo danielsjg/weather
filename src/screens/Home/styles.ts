@@ -22,7 +22,7 @@ export const SafeContainer = styled.SafeAreaView`
   flex: 2;
 `;
 
-export const Container = styled.View`
+export const Content = styled.View`
   flex: 1;
   padding: ${metrics.basePaddingMedium}px;
   padding-bottom: 0px;
@@ -87,7 +87,7 @@ export const Text = styled.Text<IColor & IAlignSelf>`
   align-self: ${props => props.alignSelf ?? 'auto'};
 `;
 
-export const LoadingContainer = styled.View`
+export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -97,20 +97,4 @@ export const LoadingContainer = styled.View`
 
 export const Loading = styled.ActivityIndicator.attrs({ size: 'large' })`
   margin: ${metrics.baseMargin}px;
-`;
-
-export const PermissionContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  margin: ${metrics.baseMargin}px;
-  background-color: ${colors.primary};
-`;
-
-export const FailedContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  margin: ${metrics.baseMargin}px;
-  background-color: ${colors.primary};
 `;

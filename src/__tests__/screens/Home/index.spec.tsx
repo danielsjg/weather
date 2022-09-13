@@ -16,7 +16,7 @@ describe('Home Screen', () => {
 
   it('should render correctly component while loading user location', () => {
     const { getByTestId } = renderWithProviders(
-      <Home locationPermission loadingUserLocation />,
+      <Home locationPermission userLocationLoading />,
     );
 
     expect(getByTestId('loadingLocationContainer')).toBeTruthy();
@@ -34,6 +34,17 @@ describe('Home Screen', () => {
     expect(getByTestId('loadingWeatherContainer')).toBeTruthy();
   });
 
+  it('should render correctly component if getting device location failed', () => {
+    const { getByTestId } = renderWithProviders(
+      <Home locationPermission getGeolocationFailed />,
+    );
+
+    expect(getByTestId('failedContainer')).toBeTruthy();
+    expect(getByTestId('failedText').children.join('')).toEqual(
+      'Getting device location has failed!',
+    );
+  });
+
   it('should render correctly component if first getting weather data failed', () => {
     const { getByTestId } = renderWithProviders(<Home locationPermission />, {
       preloadedState: {
@@ -49,6 +60,9 @@ describe('Home Screen', () => {
     });
 
     expect(getByTestId('failedContainer')).toBeTruthy();
+    expect(getByTestId('failedText').children.join('')).toEqual(
+      'Getting weather data has failed!',
+    );
   });
 
   it('should render correctly component if getting weather data success', () => {

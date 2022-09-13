@@ -2,6 +2,8 @@ export default {
   fontSizeLow: 16,
   fontSizeMedium: 20,
   fontSizeHigh: 30,
+  iconSizeLow: 30,
+  iconSizeMedium: 45,
   baseMargin: 30,
   basePaddingLow: 5,
   basePaddingMedium: 30,
