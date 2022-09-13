@@ -1,6 +1,5 @@
 // React
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Alert } from 'react-native';
 
 // Libraries
 import moment from 'moment';
@@ -30,10 +29,8 @@ import {
   Text,
   ImageContainer,
   Image,
-  LoadingContainer,
   Loading,
-  PermissionContainer,
-  FailedContainer,
+  Content,
 } from './styles';
 
 // Assets
@@ -44,7 +41,8 @@ import { metrics, colors } from '~/styles';
 
 const Home: React.FC<{
   locationPermission?: boolean;
-  loadingUserLocation?: boolean;
+  userLocationLoading?: boolean;
+  getGeolocationFailed?: boolean;
 }> = testProps => {
   const dispatch = useDispatch();
 
@@ -52,8 +50,12 @@ const Home: React.FC<{
     testProps.locationPermission ?? false,
   );
 
-  const [loadingUserLocation, setLoadingUserLocation] = useState<boolean>(
-    testProps.loadingUserLocation ?? false,
+  const [getGeolocationFailed, setGetGeolocationFailed] = useState<boolean>(
+    testProps.getGeolocationFailed ?? false,
+  );
+
+  const [userLocationLoading, setUserLocationLoading] = useState<boolean>(
+    testProps.userLocationLoading ?? false,
   );
 
   const {
@@ -98,14 +100,15 @@ const Home: React.FC<{
   );
 
   const getWeather = useCallback(async () => {
-    setLoadingUserLocation(true);
+    setUserLocationLoading(true);
     const location = await getGeolocation();
     if (location) {
+      setGetGeolocationFailed(false);
       dispatch(getWeatherRequest(location));
     } else {
-      Alert.alert('Something went wrong!', 'Try again later.');
+      setGetGeolocationFailed(true);
     }
-    setLoadingUserLocation(false);
+    setUserLocationLoading(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -120,46 +123,55 @@ const Home: React.FC<{
   const renderScreenContent = useCallback(() => {
     if (!locationPermission) {
       return (
-        <PermissionContainer testID="permissionContainer">
+        <Container testID="permissionContainer">
           <Image source={locationNotFound} />
-          <Text>The app is not allowed to get your location</Text>
-        </PermissionContainer>
+          <Text>The app is not allowed to get your location!</Text>
+        </Container>
       );
     }
-    if (loadingUserLocation) {
+    if (userLocationLoading) {
       return (
-        <LoadingContainer testID="loadingLocationContainer">
+        <Container testID="loadingLocationContainer">
           <Loading />
-          <Subtitle>Trying to get location...</Subtitle>
-        </LoadingContainer>
+          <Subtitle>Trying to get device location...</Subtitle>
+        </Container>
       );
     }
     if (weatherLoading) {
       return (
-        <LoadingContainer testID="loadingWeatherContainer">
+        <Container testID="loadingWeatherContainer">
           <Loading />
-          <Subtitle>Loading weather data...</Subtitle>
-        </LoadingContainer>
+          <Subtitle>Trying to get weather data...</Subtitle>
+        </Container>
       );
     }
-    if ([city, temp, feelsLike, pressure, humidity].includes(undefined)) {
+    if (
+      [city, temp, feelsLike, pressure, humidity].includes(undefined) ||
+      getGeolocationFailed
+    ) {
       return (
-        <FailedContainer testID="failedContainer">
+        <Container testID="failedContainer">
           <Icon
             name="refresh"
-            size={metrics.fontSizeHigh}
+            size={metrics.iconSizeMedium}
             color={colors.primaryText}
             onPress={getWeather}
             suppressHighlighting
           />
-          <Subtitle>Reading weather data has failed</Subtitle>
-        </FailedContainer>
+          <Subtitle testID="failedText">
+            {getGeolocationFailed
+              ? 'Getting device location '
+              : 'Getting weather data '}
+            has failed!
+          </Subtitle>
+          <Text>Make sure location service is enabled.</Text>
+        </Container>
       );
     }
     return (
       <>
         <SafeContainer>
-          <Container>
+          <Content>
             <TitleContainer>
               <TitleLeftContent>
                 <Title testID="city">{city}</Title>
@@ -200,7 +212,7 @@ const Home: React.FC<{
                 />
               ))}
             </CardsContainer>
-          </Container>
+          </Content>
         </SafeContainer>
         <Footer>
           <SafeContainer>
@@ -223,17 +235,18 @@ const Home: React.FC<{
     );
   }, [
     locationPermission,
-    weatherLoading,
-    loadingUserLocation,
+    userLocationLoading,
+    getGeolocationFailed,
     mainCardData,
     windCardData,
+    getWeather,
+    weatherLoading,
     city,
     temp,
     feelsLike,
     humidity,
     pressure,
     weather,
-    getWeather,
   ]);
 
   return <ScrollContainer>{renderScreenContent()}</ScrollContainer>;
