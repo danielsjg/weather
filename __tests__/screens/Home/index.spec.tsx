@@ -14,8 +14,16 @@ describe('Home Screen', () => {
     expect(getByTestId('permissionContainer')).toBeTruthy();
   });
 
+  it('should render correctly component while loading user location', () => {
+    const { getByTestId } = renderWithProviders(
+      <Home locationPermission loadingUserLocation />,
+    );
+
+    expect(getByTestId('loadingLocationContainer')).toBeTruthy();
+  });
+
   it('should render correctly component while loading weather data', () => {
-    const { getByTestId } = renderWithProviders(<Home permission />, {
+    const { getByTestId } = renderWithProviders(<Home locationPermission />, {
       preloadedState: {
         weather: {
           weatherLoading: true,
@@ -23,11 +31,11 @@ describe('Home Screen', () => {
       },
     });
 
-    expect(getByTestId('loadingContainer')).toBeTruthy();
+    expect(getByTestId('loadingWeatherContainer')).toBeTruthy();
   });
 
   it('should render correctly component if first getting weather data failed', () => {
-    const { getByTestId } = renderWithProviders(<Home permission />, {
+    const { getByTestId } = renderWithProviders(<Home locationPermission />, {
       preloadedState: {
         weather: {
           weatherLoading: false,
@@ -44,7 +52,7 @@ describe('Home Screen', () => {
   });
 
   it('should render correctly component if getting weather data success', () => {
-    const { getByTestId } = renderWithProviders(<Home permission />, {
+    const { getByTestId } = renderWithProviders(<Home locationPermission />, {
       preloadedState: {
         weather: {
           weatherLoading: false,

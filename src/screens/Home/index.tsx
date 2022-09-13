@@ -1,12 +1,18 @@
 // React
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Platform, PermissionsAndroid } from 'react-native';
+import { Alert } from 'react-native';
 
 // Libraries
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import Geolocation from '@react-native-community/geolocation';
+
+// Redux
+import { useDispatch, useSelector } from '~/store/hooks';
+import { getWeatherRequest } from '~/store/modules/weather/slice';
+
+// Utils
+import getPermission from '~/utils/getPermission';
+import getGeolocation from '~/utils/getGeolocation';
 
 // Components
 import Card from '~/components/Card';
@@ -30,21 +36,24 @@ import {
   FailedContainer,
 } from './styles';
 
-// Redux
-import { useDispatch, useSelector } from '~/store/hooks';
-import { getWeatherRequest } from '~/store/modules/weather/slice';
-
 // Assets
 import locationNotFound from '~/assets/images/locationNotFound.png';
 
 // Styles
 import { metrics, colors } from '~/styles';
 
-const Home: React.FC<{ permission?: boolean }> = testProps => {
+const Home: React.FC<{
+  locationPermission?: boolean;
+  loadingUserLocation?: boolean;
+}> = testProps => {
   const dispatch = useDispatch();
 
   const [locationPermission, setLocationPermission] = useState<boolean>(
-    testProps.permission ?? false,
+    testProps.locationPermission ?? false,
+  );
+
+  const [loadingUserLocation, setLoadingUserLocation] = useState<boolean>(
+    testProps.loadingUserLocation ?? false,
   );
 
   const {
@@ -88,60 +97,25 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
     [wind],
   );
 
-  const getPosition = useCallback(() => {
-    Geolocation.getCurrentPosition(
-      location => {
-        const { latitude, longitude } = location.coords;
-        dispatch(getWeatherRequest({ lat: latitude, lon: longitude }));
-      },
-      err => console.log(err),
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 60000,
-      },
-    );
+  const getWeather = useCallback(async () => {
+    setLoadingUserLocation(true);
+    const location = await getGeolocation();
+    if (location) {
+      dispatch(getWeatherRequest(location));
+    } else {
+      Alert.alert('Something went wrong!', 'Try again later.');
+    }
+    setLoadingUserLocation(false);
   }, [dispatch]);
 
-  const requestLocationPermissionAndroid = useCallback(async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        setLocationPermission(true);
-        getPosition();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [getPosition]);
-
-  const requestLocationPermissionIOS = useCallback(async () => {
-    await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-      .then(result => {
-        if (result === 'granted') {
-          setLocationPermission(true);
-          getPosition();
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [getPosition]);
-
-  const refreshWeather = useCallback(() => {
-    getPosition();
-  }, [getPosition]);
-
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      requestLocationPermissionAndroid();
-    } else {
-      requestLocationPermissionIOS();
-    }
-  }, [requestLocationPermissionAndroid, requestLocationPermissionIOS]);
+    getPermission().then(permission => {
+      setLocationPermission(permission);
+      if (permission) {
+        getWeather();
+      }
+    });
+  }, [getWeather]);
 
   const renderScreenContent = useCallback(() => {
     if (!locationPermission) {
@@ -152,9 +126,17 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
         </PermissionContainer>
       );
     }
+    if (loadingUserLocation) {
+      return (
+        <LoadingContainer testID="loadingLocationContainer">
+          <Loading />
+          <Subtitle>Trying to get location...</Subtitle>
+        </LoadingContainer>
+      );
+    }
     if (weatherLoading) {
       return (
-        <LoadingContainer testID="loadingContainer">
+        <LoadingContainer testID="loadingWeatherContainer">
           <Loading />
           <Subtitle>Loading weather data...</Subtitle>
         </LoadingContainer>
@@ -167,7 +149,7 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
             name="refresh"
             size={metrics.fontSizeHigh}
             color={colors.primaryText}
-            onPress={refreshWeather}
+            onPress={getWeather}
             suppressHighlighting
           />
           <Subtitle>Reading weather data has failed</Subtitle>
@@ -191,7 +173,7 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
                   name="refresh"
                   size={metrics.fontSizeHigh}
                   color={colors.primaryText}
-                  onPress={refreshWeather}
+                  onPress={getWeather}
                   suppressHighlighting
                 />
               </TitleRightContent>
@@ -242,6 +224,7 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
   }, [
     locationPermission,
     weatherLoading,
+    loadingUserLocation,
     mainCardData,
     windCardData,
     city,
@@ -250,7 +233,7 @@ const Home: React.FC<{ permission?: boolean }> = testProps => {
     humidity,
     pressure,
     weather,
-    refreshWeather,
+    getWeather,
   ]);
 
   return <ScrollContainer>{renderScreenContent()}</ScrollContainer>;
