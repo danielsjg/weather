@@ -8,7 +8,7 @@ import Card from '~/components/Card';
 import { renderWithProviders } from '../../store';
 
 // Styles
-import { colors } from '~/styles';
+import theme from '~/styles';
 
 describe('Card Component', () => {
   it('should render correctly component with props', () => {
@@ -17,8 +17,8 @@ describe('Card Component', () => {
         title="Temp"
         value={30}
         unit="°C"
-        textColor={colors.primaryText}
-        backgroundColor={colors.primary}
+        textColor={theme.colors.primaryText}
+        backgroundColor={theme.colors.primary}
       />,
     );
 

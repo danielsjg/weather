@@ -1,4 +1,4 @@
-export default {
+const metrics = {
   fontSizeLow: 16,
   fontSizeMedium: 20,
   fontSizeHigh: 30,
@@ -12,3 +12,5 @@ export default {
   baseRadiusHigh: 100,
   baseIcons: 35,
 };
+
+export default metrics;
