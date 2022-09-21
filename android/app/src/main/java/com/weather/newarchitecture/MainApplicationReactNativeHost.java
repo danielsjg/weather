@@ -1,4 +1,4 @@
-package com.weather.newarchitecture;
+package org.danielsj.weather.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.weather.BuildConfig;
-import com.weather.newarchitecture.components.MainComponentsRegistry;
-import com.weather.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import org.danielsj.weather.BuildConfig;
+import org.danielsj.weather.newarchitecture.components.MainComponentsRegistry;
+import org.danielsj.weather.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

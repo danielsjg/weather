@@ -1,4 +1,4 @@
-export default {
+const colors = {
   primary: '#FFFFFF',
   secondary: '#F5F5F5',
   tertiary: '#6753E3',
@@ -17,3 +17,5 @@ export default {
   white: '#FFFFFF',
   transparent: 'transparent',
 };
+
+export default colors;

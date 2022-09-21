@@ -14,7 +14,7 @@ const getGeolocation = () => {
         {
           timeout: 15000,
           maximumAge: 15000,
-          enableHighAccuracy: true,
+          enableHighAccuracy: false,
         },
       ),
   );

@@ -1,4 +1,4 @@
-package com.weather;
+package org.danielsj.weather;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

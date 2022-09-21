@@ -37,13 +37,14 @@ import {
 import locationNotFound from '~/assets/images/locationNotFound.png';
 
 // Styles
-import { metrics, colors } from '~/styles';
+import { useTheme } from 'styled-components';
 
 const Home: React.FC<{
   locationPermission?: boolean;
   userLocationLoading?: boolean;
   getGeolocationFailed?: boolean;
 }> = testProps => {
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const [locationPermission, setLocationPermission] = useState<boolean>(
@@ -153,8 +154,8 @@ const Home: React.FC<{
         <Container testID="failedContainer">
           <Icon
             name="refresh"
-            size={metrics.iconSizeMedium}
-            color={colors.primaryText}
+            size={theme.metrics.iconSizeMedium}
+            color={theme.colors.primaryText}
             onPress={getWeather}
             suppressHighlighting
           />
@@ -175,7 +176,7 @@ const Home: React.FC<{
             <TitleContainer>
               <TitleLeftContent>
                 <Title testID="city">{city}</Title>
-                <Subtitle color={colors.secondaryText}>
+                <Subtitle color={theme.colors.secondaryText}>
                   {moment().format('MMMM, DD')}
                 </Subtitle>
               </TitleLeftContent>
@@ -183,8 +184,8 @@ const Home: React.FC<{
                 <Title testID="temp">{temp?.toFixed(1)}°C</Title>
                 <Icon
                   name="refresh"
-                  size={metrics.fontSizeHigh}
-                  color={colors.primaryText}
+                  size={theme.metrics.fontSizeHigh}
+                  color={theme.colors.primaryText}
                   onPress={getWeather}
                   suppressHighlighting
                 />
@@ -196,7 +197,7 @@ const Home: React.FC<{
                   uri: `http://openweathermap.org/img/wn/${weather?.icon}@4x.png`,
                 }}
               />
-              <Text color={colors.secondaryText}>
+              <Text color={theme.colors.secondaryText}>
                 {weather?.description?.toUpperCase()}
               </Text>
             </ImageContainer>
@@ -207,8 +208,8 @@ const Home: React.FC<{
                   title={card.title}
                   value={card.value}
                   unit={card.unit}
-                  textColor={colors.primaryText}
-                  backgroundColor={colors.primary}
+                  textColor={theme.colors.primaryText}
+                  backgroundColor={theme.colors.primary}
                 />
               ))}
             </CardsContainer>
@@ -216,7 +217,7 @@ const Home: React.FC<{
         </SafeContainer>
         <Footer>
           <SafeContainer>
-            <Subtitle color={colors.tertiaryText}>WIND</Subtitle>
+            <Subtitle color={theme.colors.tertiaryText}>WIND</Subtitle>
             <CardsContainer>
               {Object.values(windCardData).map(card => (
                 <Card
@@ -224,8 +225,8 @@ const Home: React.FC<{
                   title={card.title}
                   value={card.value}
                   unit={card.unit}
-                  textColor={colors.tertiaryText}
-                  backgroundColor={colors.tertiary}
+                  textColor={theme.colors.tertiaryText}
+                  backgroundColor={theme.colors.tertiary}
                 />
               ))}
             </CardsContainer>
@@ -234,6 +235,7 @@ const Home: React.FC<{
       </>
     );
   }, [
+    theme,
     locationPermission,
     userLocationLoading,
     getGeolocationFailed,

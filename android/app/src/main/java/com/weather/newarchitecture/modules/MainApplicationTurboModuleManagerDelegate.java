@@ -1,4 +1,4 @@
-package com.weather.newarchitecture.modules;
+package org.danielsj.weather.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
