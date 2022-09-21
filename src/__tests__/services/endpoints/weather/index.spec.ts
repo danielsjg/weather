@@ -1,4 +1,4 @@
-import { getWeatherAPI } from '~/services/endpoints/weather';
+import { getWeatherAPI } from '~/services/modules/weather';
 
 describe('Weather Endpoints', () => {
   it('should return the attributes correctly in getWeatherAPI', async () => {

@@ -6,7 +6,7 @@ import { takeLatest, put, all } from 'redux-saga/effects';
 import {
   getWeatherAPI,
   GetWeatherResponseDTO,
-} from '~/services/endpoints/weather';
+} from '~/services/modules/weather';
 
 // Redux
 import {
