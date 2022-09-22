@@ -1,12 +1,13 @@
 <h1 align="center">Weather</h1>
 
-## Content Table
+## ⭐ Content Table
 
 - [About this project](#-about-this-project)
 - [Tools](#-tools)
 - [Layout](#-layout)
-- [Running the project](#running-the-project)
-- [Running the tests](#running-the-tests)
+- [Running the project](#-running-the-project)
+- [Running the tests](#-running-the-tests)
+- [Download](#-download)
 - [Author](#-author)
 
 
@@ -52,7 +53,7 @@ Designed with Figma, available in:
 <img src="https://raw.githubusercontent.com/danielsjg/weather/main/files/weather.png" width="200">
 
 
-## Running the project
+## 🚀 Running the project
 
 ```bash
 # 1. Clone this repo
@@ -90,11 +91,15 @@ yarn ios
 ```
 
 
-## Running the tests
+## 📝 Running the tests
 
 ```bash
 yarn test
 ```
+
+
+## 📱 Download
+<a href="https://play.google.com/store/apps/details?id=org.danielsj.weather"><img src="https://raw.githubusercontent.com/danielsjg/weather/master/files/google-play-badge.png" width="200"></a>
 
 
 ## 👨‍💻 Author
