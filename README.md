@@ -9,6 +9,7 @@
 - [Running the tests](#-running-the-tests)
 - [Download](#-download)
 - [Author](#-author)
+- [License](#-license)
 
 
 ## 📄 About this project
@@ -105,3 +106,8 @@ yarn test
 ## 👨‍💻 Author
 
 - [Daniel Soares Jorge](https://github.com/danielsjg)
+
+
+## 🔓 License
+
+- MIT
